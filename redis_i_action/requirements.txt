@@ -1,0 +1,4 @@
+redis>=2.10.3
+hiredis>=0.1.6
+Flask==0.10.1
+gunicorn>=19.2.1
