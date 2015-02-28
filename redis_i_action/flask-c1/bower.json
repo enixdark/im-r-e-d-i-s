@@ -1,0 +1,16 @@
+{
+  "name": "flask-c1",
+  "version": "0.0.0",
+  "homepage": "https://github.com/enixdark/im-r-e-d-i-s",
+  "authors": [
+    "enixdark <cqshinn92@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
