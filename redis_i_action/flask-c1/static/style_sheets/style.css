@@ -1,0 +1,64 @@
+h5 {
+    margin-top: 1px !important;
+}
+
+.img {
+    float: left;
+    font-size: 0;
+    margin: 0 5px 2px 0;
+    overflow: hidden;
+    width: 70px;
+}
+
+.arrow.up {
+    background-image: url("/static/media/sprite.png");
+    background-position: -63px -818px;
+    background-repeat: no-repeat;
+}
+
+.arrow.down {
+    background-image: url("/static/media/sprite.png");
+    background-position: -21px -818px;
+    background-repeat: no-repeat;
+}
+
+.left-article{
+    padding-left: 30px !important;
+    padding-right: 0px !important;
+}
+
+.right-article{
+    padding-left: 0px !important;
+}
+
+.arrow {
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: block;
+    height: 14px;
+    margin: 2px auto 0;
+
+    outline: medium none;
+    width: 15px;
+}
+
+body > .content .link .midcol, .midcol-spacer {
+    width: 5.1ex;
+}
+.link .midcol {
+    font-size: small;
+    font-weight: bold;
+}
+.midcol {
+    background: none repeat scroll 0 0 transparent;
+    float: left;
+    margin-left: 7px;
+    margin-right: 7px;
+    overflow: hidden;
+}
+
+.score {
+    text-align: center;
+
+}

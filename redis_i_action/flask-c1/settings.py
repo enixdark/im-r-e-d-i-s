@@ -10,7 +10,7 @@ class Config(object):
 	APP_SETTINGS="settings.DevelopmentConfig"
 	# DATABASE_URI = os.environ['DATABASE_URL']
 	DATABASE_URI = "postgresql://localhost/redis"
-
+	SQLALCHEMY_DATABASE_URI = "postgresql://localhost:5432/redis"
 class ProductConfig(Config):
 	DEBUG = False
 
