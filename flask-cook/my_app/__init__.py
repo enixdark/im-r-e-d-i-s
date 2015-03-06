@@ -9,9 +9,21 @@ from flask.ext.openid import OpenID
 # from flask.ext.mongoengine import MongoEngine
 from flask.ext.migrate import Migrate,MigrateCommand
 from flask.ext.script import Manager
+from flask_oauth import OAuth
 from redis import Redis
 
 redis = Redis()
+oauth = OAuth()
+
+facebook = oauth.remote_app('facebook',
+	base_url = 'https://graph.facebook.com/',
+	request_token_url = None,
+	access_token_url = '/oauth/access_token',
+	authorize_url = 'https://www.facebook.com/dialog/oauth',
+	consumer_key='921822021184914', #set your ID from Facebook
+	consumer_secret = '35170d9938534003c346f03ecadf1da5', #set yout secret from Facebook
+	request_token_params = {'scope':'email'}
+)
 
 #set file extension for upload
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])

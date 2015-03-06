@@ -1,12 +1,12 @@
 from my_app.auth.models import User
 from flask import request,redirect,render_template,flash,\
 		Blueprint,url_for,session
-from my_app import app,db,oid
+from my_app import app,db,oid,login_manager,facebook
 from forms import LoginForm,RegistrationForm,OpenIDForm
 
 from flask import g
 from flask.ext.login import current_user, login_user,logout_user, login_required
-from my_app import login_manager
+
 
 auth = Blueprint('auth',__name__)
 
@@ -99,3 +99,37 @@ def login():
 def logout():
 	logout_user()
 	return redirect('/')
+
+@auth.route('/facebook-login')
+def facebook_login():
+	return facebook.authorize(
+		callback = url_for('auth.facebook_authorized',
+			next=request.args.get('next') or request.referrer or None,
+			_external=True
+			)
+		)
+
+@auth.route('/facebook-login/authorized')
+@facebook.authorized_handler
+def facebook_authorized(res):
+	if res is None:
+		return 'Access denied: reason=%s' % (
+			request.args['error_reason'],
+			request.args['error_description']
+			)
+	session['facebook_oauth_token'] = (res['access_token'],'')
+	me = facebook.get('/me')
+	user = User.query.filter_by(email=me.data['email']).first()
+	if not user:
+		user = User(me.data['email'], '', me.data['email'])
+		db.session.add(user)
+		db.session.commit()
+	login_user(user)
+	flash(
+		'Logged in as id=%s ,name=%s' % (me.data['id'],me.data['name']),'success'
+	)
+	return redirect(request.args.get('next'))
+
+@facebook.tokengetter
+def get_facebook_oauth_token():
+	return session.get('facebook_oauth_token')
