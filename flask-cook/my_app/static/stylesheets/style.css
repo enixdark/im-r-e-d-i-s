@@ -1,0 +1,36 @@
+body {
+	padding-top: 50px;
+}
+.top-pad {
+	padding: 40px 15px;
+	text-align: center;
+}
+
+.content{
+	position: fixed;
+}
+
+.label{
+	color: black;
+}
+
+.nav-header{
+	display: inline;
+}
+
+.nav-left:{
+	float: left;
+/*	display:inline;
+*/}
+
+.nav-right:{
+	float: right;
+/*	display:inline;
+*/}
+.row-left {
+	text-align: left;
+}
+
+.row-right {
+	text-align: right;
+}
