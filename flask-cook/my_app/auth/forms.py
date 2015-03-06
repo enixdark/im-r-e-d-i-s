@@ -9,6 +9,7 @@ import re
 
 EMAIL_VALIDATE = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
 
+
 def check_duplicate(case_sentisive=True):
 	def _check_duplicate(form,field):
 		if case_sentisive:
@@ -46,3 +47,6 @@ class RegistrationForm(Form):
 class LoginForm(Form):
 	email = EmailField('Email',[InputRequired()])
 	password = PasswordField('Password',[InputRequired()])
+
+class OpenIDForm(Form):
+	openid = TextField('OpenID', [InputRequired()])

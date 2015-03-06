@@ -3,7 +3,9 @@ from flask import Flask,render_template
 from moment import momentjs
 from flask_wtf.csrf import CsrfProtect
 # from my_app.product.views import product_blueprint
+from flask.ext.login import LoginManager
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.openid import OpenID
 # from flask.ext.mongoengine import MongoEngine
 from flask.ext.migrate import Migrate,MigrateCommand
 from flask.ext.script import Manager
@@ -28,6 +30,10 @@ def page_500(e):
 	return render_template('error/500.html'), 500
 # app.register_blueprint(product_blueprint)
 db = SQLAlchemy(app)
+oid = OpenID(app, 'openid-store')
+#set login
+login_manager = LoginManager(app)
+login_manager.login_view = 'auth.login'
 # app.config['MONGODB_SETTING'] = {'DB':'my_catalog'}
 app.debug = True
 
@@ -43,3 +49,4 @@ manager = Manager(app)
 manager.add_command('db',MigrateCommand)
 
 # db.create_all()
+

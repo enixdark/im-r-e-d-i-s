@@ -7,8 +7,8 @@ role="navigation">
 	}}">Flask Cookbook</a>
 	</div>
 	<div class="navbar-right">
-	{% if session.email %}
-	<span class="navbar-brand">{{ session.username }}!!</span>
+	{% if current_user.is_authenticated() %}
+	<span class="navbar-brand">{{ current_user }}!!</span>
 	<a class="navbar-brand" href="{{ url_for('auth.logout') }}">
 		Logout</a>
 	{% else %}
