@@ -15,15 +15,22 @@ from redis import Redis
 redis = Redis()
 oauth = OAuth()
 
-facebook = oauth.remote_app('facebook',
-	base_url = 'https://graph.facebook.com/',
-	request_token_url = None,
-	access_token_url = '/oauth/access_token',
-	authorize_url = 'https://www.facebook.com/dialog/oauth',
-	consumer_key='921822021184914', #set your ID from Facebook
-	consumer_secret = '35170d9938534003c346f03ecadf1da5', #set yout secret from Facebook
-	request_token_params = {'scope':'email'}
-)
+
+
+google = oauth.remote_app('google',
+	base_url = 'https://www.google.com/accounts/',
+	authorize_url='https://accounts.google.com/o/oauth2/auth',
+	request_token_url=None,
+	request_token_params={
+			'scope':'https://www.googleapis.com/auth/userinfo.email',
+			'response_type':'code'
+		},
+	access_token_url='https://accounts.google.com/o/oauth2/token',
+	access_token_method='POST',
+	access_token_params={'grant_type':'authorization_code'},
+	consumer_key='', #fill your Client ID
+	consumer_secret='', # fill you server  Client secret
+	)
 
 #set file extension for upload
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
