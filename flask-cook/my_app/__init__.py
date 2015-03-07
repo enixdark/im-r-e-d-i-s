@@ -10,8 +10,9 @@ from flask.ext.openid import OpenID
 from flask.ext.migrate import Migrate,MigrateCommand
 from flask.ext.script import Manager
 from flask_oauth import OAuth
+# from flask.ext.restless import APIManager
 from redis import Redis
-
+from flask.ext.restful import Api
 redis = Redis()
 oauth = OAuth()
 
@@ -24,7 +25,7 @@ twitter = oauth.remote_app('twitter',
 	authorize_url='https://api.twitter.com/oauth/authenticate',
 	consumer_key='TdE45L4mH7XSTXZ1ZWup92RY6',
 	consumer_secret='8lPcGXbefN3QO2IpdVVVKnpxsjYxGkUM8VDh9zKsbyuxpe0d2m'
-	)
+)
 
 #set file extension for upload
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -45,21 +46,20 @@ def page_500(e):
 db = SQLAlchemy(app)
 oid = OpenID(app, 'openid-store')
 #set login
+# api = APIManager(app, flask_sqlalchemy_db=db)
+api = Api(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'auth.login'
-# app.config['MONGODB_SETTING'] = {'DB':'my_catalog'}
 app.debug = True
 
-# db = MongoEngine(app)
 migrate = Migrate(app,db)
 
 from my_app.catalog.views import catalog
-from my_app.auth.views import auth
-app.register_blueprint(auth)
+# from my_app.auth.views import auth
+# app.register_blueprint(auth)
 app.register_blueprint(catalog)
 
 manager = Manager(app)
 manager.add_command('db',MigrateCommand)
 
-# db.create_all()
 
