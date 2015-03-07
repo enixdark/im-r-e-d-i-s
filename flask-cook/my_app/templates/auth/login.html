@@ -5,7 +5,7 @@
 		<li class="active"><a href="#simple-form" data-
 			toggle="tab">Old Style Login</a></li>
 			<li><a href="#openid-form" data-toggle="tab">OpenID</a></li>
-			<li><a href="#social-logins" data-toggle="tab">Google Social Logins</a></li>
+			<li><a href="#social-logins" data-toggle="tab">Twitter Social Logins</a></li>
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="simple-form">
@@ -35,7 +35,7 @@
 					</form>
 				</div>
 				<div class="tab-pane" id="social-logins">
-					<a href="{{ url_for('auth.google_login',next=url_for('catalog.home') ) }}">Login via Google</a>
+					<a href="{{ url_for('auth.twitter_login',next=url_for('catalog.home') ) }}">Login via Twitter</a>
 				</div>
 			</div>
 		</div>

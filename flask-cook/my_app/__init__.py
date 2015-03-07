@@ -17,19 +17,13 @@ oauth = OAuth()
 
 
 
-google = oauth.remote_app('google',
-	base_url = 'https://www.google.com/accounts/',
-	authorize_url='https://accounts.google.com/o/oauth2/auth',
-	request_token_url=None,
-	request_token_params={
-			'scope':'https://www.googleapis.com/auth/userinfo.email',
-			'response_type':'code'
-		},
-	access_token_url='https://accounts.google.com/o/oauth2/token',
-	access_token_method='POST',
-	access_token_params={'grant_type':'authorization_code'},
-	consumer_key='', #fill your Client ID
-	consumer_secret='', # fill you server  Client secret
+twitter = oauth.remote_app('twitter',
+	base_url = 'https://api.twitter.com/1.1/',
+	request_token_url='https://api.twitter.com/oauth/request_token',
+	access_token_url='https://api.twitter.com/oauth/access_token',
+	authorize_url='https://api.twitter.com/oauth/authenticate',
+	consumer_key='TdE45L4mH7XSTXZ1ZWup92RY6',
+	consumer_secret='8lPcGXbefN3QO2IpdVVVKnpxsjYxGkUM8VDh9zKsbyuxpe0d2m'
 	)
 
 #set file extension for upload

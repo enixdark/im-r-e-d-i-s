@@ -1,7 +1,7 @@
 from my_app.auth.models import User
 from flask import request,redirect,render_template,flash,\
 		Blueprint,url_for,session
-from my_app import app,db,oid,login_manager,google
+from my_app import app,db,oid,login_manager,twitter
 from forms import LoginForm,RegistrationForm,OpenIDForm
 
 from flask import g
@@ -11,7 +11,6 @@ import requests
 auth = Blueprint('auth',__name__)
 
 
-GOOGLE_OAUTH2_USERINFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
 
 @login_manager.user_loader
 def load_user(id):
@@ -103,36 +102,34 @@ def logout():
 	logout_user()
 	return redirect('/')
 
-@auth.route('/google-login')
-def google_login():
-	return google.authorize(
-		callback = url_for('auth.google_authorized',_external=True
+@auth.route('/twitter-login')
+def twitter_login():
+	return twitter.authorize(
+		callback = url_for('auth.twitter_authorized',next=request.args.get('next') or request.referrer or None,
+			_external=True
 			)
 		)
 
 @auth.route('/oauth2callback')
-@google.authorized_handler
-def google_authorized(res):
+@twitter.authorized_handler
+def twitter_authorized(res):
 	if res is None:
 		return 'Access denied: reason=%s' % (
 			request.args['error_reason'],
 			request.args['error_description']
 			)
-	session['google_oauth_token'] = (res['access_token'],'')
-	userinfo = requests.get(GOOGLE_OAUTH2_USERINFO_URL,params=dict(
-			access_token=res['access_token'],
-		)).json()
-	user = User.query.filter_by(email=userinfo['email']).first()
+	session['twitter_oauth_token'] = res['oauth_token'] + res['oauth_token_secret']
+	user = User.query.filter_by(email=res['screen_name']).first()
 	if not user:
-		user = User(userinfo['email'], '', userinfo['email'])
+		user = User(res['screen_name'], '', res['screen_name'])
 		db.session.add(user)
 		db.session.commit()
 	login_user(user)
 	flash(
-		'Logged in as id=%s ,name=%s' % (userinfo['id'],userinfo['name']),'success'
+		'Logged in as handle=%s' % res['screen_name'],'success'
 	)
-	return redirect('/')
+	return redirect(request.args.get('next'))
 
-@google.tokengetter
-def get_google_oauth_token():
-	return session.get('google_oauth_token')
+@twitter.tokengetter
+def get_twitter_oauth_token():
+	return session.get('twitter_oauth_token')
