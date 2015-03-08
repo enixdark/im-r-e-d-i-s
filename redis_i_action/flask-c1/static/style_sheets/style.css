@@ -62,3 +62,8 @@ body > .content .link .midcol, .midcol-spacer {
     text-align: center;
 
 }
+
+.top-pad {
+    padding: 40px 15px;
+    text-align: center;
+}

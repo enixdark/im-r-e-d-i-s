@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="top-pad">
+	<div>
+
+		{% for message in get_flashed_messages() %}
+		<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+			{{ message }}
+		</div>
+		{% endfor %}
+	</div>
+	<br/>
+	<form
+	class="form-horizontal"
+	method="POST"
+	action="{{ url_for('create_article') }}"
+	role="form" enctype="multipart/form-data">
+	{{ form.csrf_token }}
+	<div class="form-group">{{ form.title.label }}:{{ form.title() }}</div>
+	<div class="form-group">{{ form.link.label }}:{{ form.link() }}</div>
+	<div class="form-group">{{ form.image.label }}: {{ form.image(style='display:inline;') }}</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+{% endblock %}

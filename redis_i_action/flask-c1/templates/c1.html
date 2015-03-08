@@ -8,26 +8,28 @@
 
 
 <div class="container">
-
-{% for item in results %}
+{% raw %}
+<div ng-repeat="data in listData">
 <div class="row">
 <div class="left-article col-xs-1 ">
-  <div tabindex="0" aria-label="tăng hạng" role="button" onclick="$(this).vote(r.config.vote_hash, null, event)" class="arrow up login-required">
-
+  <div tabindex="0" aria-label="tăng hạng" role="button"
+  ng-click="event_vote(data).vote_up()" class="arrow up login-required">
   </div>
-  <div class="score unvoted"> {{ item.votes }} </div>
+  <div class="score unvoted"> {{ data.votes }} </div>
 
-  <div tabindex="0" aria-label="giảm hạng" role="button" onclick="$(this).vote(r.config.vote_hash, null, event)" class="arrow down login-required">
+  <div tabindex="0" aria-label="giảm hạng" role="button" ng-click="event_vote(data).vote_down()" class="arrow down login-required">
   </div>
 </div>
 <div class="right-article col-xs-11 ">
 <a class="img thumbnail may-blank loggedin" href="">
 <img width="70" height="46" alt="" src="//b.thumbs.redditmedia.com/SuAauHZg2DuFlaiY3P0201RCqaYmu702ONxblCaWoIA.jpg">
 </a>
-<h5>Title: {{ item.title }}</h5>
-<p class="tagline">posted<time class="live-timestamp" datetime="2015-03-01T15:15:33+00:00" title="Sun Mar 1 15:15:33 2015 UTC"> {{ item.time }} </time> by <a class="author may-blank id-t2_bs4qm userTagged" href="http://www.reddit.com/user/Gilgamesh-"> {{ item.poster }} </a><span class="RESUserTag"><a class="userTagLink RESUserTagImage" username="gilgamesh-" title="set a tag" href="javascript:void(0)"></a></span> <a href="javascript:void(0)" class="voteWeight" style="display: none;">[vw]</a><span class="userattrs"></span> trong mục <a class="subreddit hover may-blank" href="http://www.reddit.com/r/pics/">/r/pics</a></p>
+<h5>Title: {{ data.title }}</h5>
+<p class="tagline">posted<time class="live-timestamp" datetime="2015-03-01T15:15:33+00:00" title="Sun Mar 1 15:15:33 2015 UTC"> {{ data.time }} </time> by <a class="author may-blank id-t2_bs4qm userTagged" href="http://www.reddit.com/user/Gilgamesh-"> {{ item.poster }} </a><span class="RESUserTag"><a class="userTagLink RESUserTagImage" username="gilgamesh-" title="set a tag" href="javascript:void(0)"></a></span> <a href="javascript:void(0)" class="voteWeight" style="display: none;">[vw]</a><span class="userattrs"></span> trong mục <a class="subreddit hover may-blank" href="http://www.reddit.com/r/pics/">/r/pics</a></p>
 </div>
 </div>
-{% endfor %}
 </div>
+</div>
+{% endraw %}
+
 {% endblock %}

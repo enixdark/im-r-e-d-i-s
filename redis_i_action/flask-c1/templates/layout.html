@@ -1,4 +1,4 @@
-<html>
+<html ng-app="app">
   <head>
     {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='style_sheets/style.css') }}">
@@ -7,6 +7,9 @@
     <script src="{{ url_for('static', filename='javascripts/jquery.min.js')}}"></script>
     <script src="{{ url_for('static', filename='javascripts/bootstrap.min.js')}}"></script>
     <script src="{{ url_for('static', filename='javascripts/angular.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='app/http.js')}}"></script>
+    <script src="{{ url_for('static', filename='app/controller.js')}}"></script>
+
     <style>
       .container {
         max-width: 1000px;
@@ -16,7 +19,7 @@
     {% endblock %}
 
   </head>
-  <body>
+  <body ng-controller="mainController">
     <div class="header">
       {% include  "_header.html" %}
     </div>

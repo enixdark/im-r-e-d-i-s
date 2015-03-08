@@ -1,6 +1,6 @@
 import os,sys
 
-_basedir = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 class Config(object):
 	DEBUG = False
@@ -11,6 +11,9 @@ class Config(object):
 	# DATABASE_URI = os.environ['DATABASE_URL']
 	DATABASE_URI = "postgresql://localhost/redis"
 	SQLALCHEMY_DATABASE_URI = "postgresql://localhost:5432/redis"
+	WTF_CSRF_ENABLED = True
+	UPLOAD_FOLDER = BASE_DIR+'/flask-c1/static/media'
+
 class ProductConfig(Config):
 	DEBUG = False
 
