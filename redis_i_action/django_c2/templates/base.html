@@ -1,0 +1,28 @@
+<html>
+  <head>
+    {% load staticfiles %}
+    {% block head %}
+    <link rel="stylesheet" href="{% static 'stylesheets/main.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'stylesheets/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <script src="{% static 'javascripts/jquery.min.js' %}"></script>
+    <script src="{% static 'javascripts/bootstrap.min.js' %}"></script>
+    <script src="{% static 'javascripts/underscore-min.js' %}"></script>
+    <script src="{% static 'javascripts/backbone.js' %}"></script>
+
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+
+  </head>
+  <body>
+    <div class="header">
+      {% include  "_header.html" %}
+    </div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<div class="navbar navbar-inverse" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle"
+		data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+		<li><a class="navbar-brand pull-right" href="/">Flasky</a></li>
+
+	</ul>
+
+	<ul class="nav navbar-nav navbar-right">
+	{% if current_user.is_authenticated %}
+		<li class="dropdown">
+			<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">{{ current_user.name }} <span class="caret"></span></a>
+			<ul role="menu" class="dropdown-menu">
+
+				<li class="divider"></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</li>
+	{% else %}
+		<li><a href="/login">Login</a></li>
+
+	{% endif %}
+
+	</ul>
+</div>
+</div>
+</div>
