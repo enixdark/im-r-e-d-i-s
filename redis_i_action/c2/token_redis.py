@@ -9,6 +9,18 @@ LIMIT = 10000000
 def check_token(conn,token):
 	return conn.hget('login:',token)
 
+def update_token_pipeline(conn,token,user,item=None):
+	timestamp = time.time()
+	pipe = conn.pipeline()
+	pipe.hset('login:',token,user)
+	pipe.zadd('recent:',token,timestamp)
+
+	if item:
+		pipe.zadd('viewed:' + token,item,timestamp)
+		pipe.zremrangebyrank('viewed:' + token,0,-26)
+		pipe.zincrby('viewed:',item,-1)
+	pipe.execute()
+
 def update_token(conn,token,user,item=None):
 	timestamp = time.time()
 	conn.hset('login:',token,user)
@@ -17,6 +29,18 @@ def update_token(conn,token,user,item=None):
 		conn.zadd('viewed:' + token,item,timestamp)
 		conn.zremrangebyrank('viewed:' + token,0,-26)
 		conn.zincrby('viewed:',item,-1)
+
+def benchmark_update_token(conn,duration):
+	for function in (update_token,update_token_pipeline):
+		count = 0
+		start = time.time()
+		end = start + duration
+		while time.time() < end:
+			count += 1
+			function(conn,'token','user','item')
+		delta = time.time() - start
+		print function.__name__,count,delta,count / delta
+
 def clean_sessions(conn):
 	while not QUIT:
 		size = conn.zcard('recent:')
