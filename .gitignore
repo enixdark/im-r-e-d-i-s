@@ -4,7 +4,10 @@ __pycache__/
 
 # C extensions
 *.so
-
+*.zip
+*.csv
+*.tar
+*.gz
 # Distribution / packaging
 .Python
 env/
@@ -52,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+media/*
+bower_components
